@@ -8,6 +8,7 @@
 
     <button class="logout">Logout</button>
     <button class="refresh">Refresh User</button>
+    <button class="students">Students</button>
     
 </body>
 <script>
@@ -30,6 +31,12 @@
     if (window.location.pathname == "/login" || window.location.pathname == "/register") {
         $(".refresh").hide();
     }
+    if (window.location.pathname == "/login" || window.location.pathname == "/register") {
+        $(".students-store").hide();
+    }
+    if (window.location.pathname == "/login" || window.location.pathname == "/register") {
+        $(".students").hide();
+    }
 
     //logout user
 
@@ -51,6 +58,7 @@
             });
         });
 
+
         //refresh token api
 
         $(".refresh").click(function(){
@@ -69,6 +77,18 @@
                     }
                 }
             });
+
+        });
+
+        $(".students-store").click(function(){
+
+            window.open("/students-store","_self");
+
+        });
+
+        $(".students").click(function(){
+
+            window.open("/get-students","_self");
 
         });
     });

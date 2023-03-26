@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\StudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,8 +26,8 @@ Route::group(['middleware'=>'api'],function($routes){
     Route::post('profile-update', [UserController::class,'updateProfile']);
     Route::get("send-verify-mail/{email}", [UserController::class, "sendVerifyMail"]);
     Route::get("refresh-token",[UserController::class, "refreshToken"]);
-
-
+    Route::post('students-store', [StudentController::class,'store']);
+    //Route::get('/students', [StudentController::class,'getData']);
 });
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

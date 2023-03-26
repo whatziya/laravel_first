@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Student;
 use App\Models\PasswordReset;
 use Validator;
 use Illuminate\Support\Facades\Hash;
@@ -64,6 +65,8 @@ class UserController extends Controller
 
         return $this->respondWithToken($token);
     }
+
+    
 
     public function respondWithToken($token)
     {
@@ -232,42 +235,4 @@ class UserController extends Controller
             ]);
         }
     }
-
-    // //forget password api
-
-    // public function forgetPassword(Request $request)
-    // {
-    //     try {
-    //         $user = User::where("email",$request->email)->get();
-
-    //         if (count($user) > 0) {
-                
-    //             $token = Str::random(40);
-    //             $domain = URL::to("/");
-    //             $url = $domain.'/reset-password?token='.$token;
-
-    //             $data['url'] = $url;
-    //             $data['email'] = $request->email;
-    //             $data['title'] = "Password Reset";
-    //             $data['body'] = "Please, click here to reset your password";
-
-    //             Mail::send('forgetPasswordMail',['data'=>$data],function($message) use ($data){
-    //                 $message->to($data['email'])->subject(data['title']);
-    //             });
-
-
-    //         } else {
-    //             return response([
-    //                 "success"=>false,
-    //                 "msg"=>"User not Found."
-    //             ]);
-    //         }
-            
-    //     } catch (\Exception $e) {
-    //         return response([
-    //             "success"=>false,
-    //             "msg"=>$e->getMessage()
-    //         ]);
-    //     }
-    // }
 }

@@ -104,12 +104,11 @@
                 headers:{'Authorization':localStorage.getItem("user_token")},
                 success:function(data){
                     $('.result').text(data.msg);
-                    setTimeout(() => {
-                        $('.result').text("");
-                    }, 1000);
                 }
             });
         });
+
+
     });
 
 </script>
