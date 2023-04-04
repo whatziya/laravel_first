@@ -6,10 +6,10 @@
 </head>
 <body>
 
-    <button class="logout">Logout</button>
-    <button class="refresh">Refresh User</button>
-    <button class="students">Students</button>
-    
+<button class="logout">Logout</button>
+<button class="refresh">Refresh User</button>
+<button class="students">Students</button>
+
 </body>
 <script>
 
@@ -17,41 +17,32 @@
 
     if (window.location.pathname == "/login" || window.location.pathname == "/register") {
         if (token != null) {
-            window.open("/profile","_self");
+            window.open("/profile", "_self");
         }
+        $(".refresh").hide();
+        $(".store-student").hide();
+        $(".students").hide();
         $(".logout").hide();
-    }
-    else {
+    } else {
         console.log(token);
         if (token == null) {
-            window.open("/login","_self");
+            window.open("/login", "_self");
         }
-    }
-
-    if (window.location.pathname == "/login" || window.location.pathname == "/register") {
-        $(".refresh").hide();
-    }
-    if (window.location.pathname == "/login" || window.location.pathname == "/register") {
-        $(".students-store").hide();
-    }
-    if (window.location.pathname == "/login" || window.location.pathname == "/register") {
-        $(".students").hide();
     }
 
     //logout user
 
-    $(document).ready(function(){
-        $(".logout").click(function(){
+    $(document).ready(function () {
+        $(".logout").click(function () {
             $.ajax({
-                url:"http://127.0.0.1:8000/api/logout",
-                type:"GET",
-                headers:{"authorization": localStorage.getItem("user_token")},
-                success:function(data){
+                url: "http://127.0.0.1:8000/api/logout",
+                type: "GET",
+                headers: {"authorization": localStorage.getItem("user_token")},
+                success: function (data) {
                     if (data.success == true) {
                         localStorage.removeItem("user_token");
                         window.open("/login", "_self");
-                    }
-                    else {
+                    } else {
                         alert(data.msg);
                     }
                 }
@@ -61,18 +52,17 @@
 
         //refresh token api
 
-        $(".refresh").click(function(){
+        $(".refresh").click(function () {
 
             $.ajax({
-                url:"http://127.0.0.1:8000/api/refresh-token",
-                type:"GET",
-                headers:{"Authorization":localStorage.getItem("user_token")},
-                success:function(data){
-                    if (data.success == true){
-                        localStorage.setItem("user_token",data.token_type+" "+data.access_token);
+                url: "http://127.0.0.1:8000/api/refresh-token",
+                type: "GET",
+                headers: {"Authorization": localStorage.getItem("user_token")},
+                success: function (data) {
+                    if (data.success == true) {
+                        localStorage.setItem("user_token", data.token_type + " " + data.access_token);
                         alert("User is Refreshed.");
-                    } 
-                    else {
+                    } else {
                         alert(data.msg);
                     }
                 }
@@ -80,15 +70,15 @@
 
         });
 
-        $(".students-store").click(function(){
+        $(".store-student").click(function () {
 
-            window.open("/students-store","_self");
+            window.open("/store-student", "_self");
 
         });
 
-        $(".students").click(function(){
+        $(".students").click(function () {
 
-            window.open("/get-students","_self");
+            window.open("/students", "_self");
 
         });
     });

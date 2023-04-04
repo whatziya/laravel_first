@@ -2,7 +2,7 @@
 
 <style>
 
-    span{
+    span {
         color: red;
     }
 
@@ -36,53 +36,53 @@
     <span class="error group_err"></span>
     <br><br>
     <input type="submit" value="Add">
-    
+
 </form>
 <br>
-<p class="result"><p>
+<p class="result">
+<p>
 
-<script>
+    <script>
 
-    $(".logout").hide();
-    $(".refresh").hide();
-    $(".students-store").hide();
-    $(".students").hide();
-    $(".back-students").click(function(){
-        window.open("/get-students","_self");
-    });
-
-    $(document).ready(function(){
-        $("#students-store_form").submit(function(event){
-            event.preventDefault();
-
-            var fromData = $(this).serialize();
-
-            $.ajax({
-                url:"http://127.0.0.1:8000/api/students-store",
-                type:"POST",
-                headers:{"Authorization":localStorage.getItem("user_token")},
-                data:fromData,
-                success:function(data){
-                    if (data.msg) {
-                        $("#students-store_form")[0].reset();
-                        $(".error").text("");
-                        $(".result").text(data.msg);
-                        window.open("/get-students","_self");
-                    }
-                    else {
-                        printErrorMsg(data);
-                    }
-                }
-            });
-
+        $(".logout").hide();
+        $(".refresh").hide();
+        $(".students-store").hide();
+        $(".students").hide();
+        $(".back-students").click(function () {
+            window.open("/students", "_self");
         });
 
-        function printErrorMsg(msg) {
-            $(".error").text("");
-            $.each(msg,function(key, value){
-                $("."+key+"_err").text(value);
-            });
-        }
-    });
+        $(document).ready(function () {
+            $("#students-store_form").submit(function (event) {
+                event.preventDefault();
 
-</script>
+                var fromData = $(this).serialize();
+
+                $.ajax({
+                    url: "http://127.0.0.1:8000/api/students",
+                    type: "POST",
+                    headers: {"Authorization": localStorage.getItem("user_token")},
+                    data: fromData,
+                    success: function (data) {
+                        if (data.msg) {
+                            $("#students-store_form")[0].reset();
+                            $(".error").text("");
+                            $(".result").text(data.msg);
+                            window.open("/students", "_self");
+                        } else {
+                            printErrorMsg(data);
+                        }
+                    }
+                });
+
+            });
+
+            function printErrorMsg(msg) {
+                $(".error").text("");
+                $.each(msg, function (key, value) {
+                    $("." + key + "_err").text(value);
+                });
+            }
+        });
+
+    </script>

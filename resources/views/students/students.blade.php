@@ -1,7 +1,7 @@
 @include('header')
 
 <button class="back">Back to profile</button>
-<button class="students-store">Add Student</button>
+<button class="store-student">Add Student</button>
 <span class="output"></span>
 <table id="table-data" border="1" style="margin:10px 0;">
     <tr>
@@ -11,8 +11,8 @@
         <th>Surname</th>
         <th>Lastname</th>
         <th>Birthdate</th>
-        <th>Group</th>  
-        <th>Edit/Delete</th>  
+        <th>Group</th>
+        <th>Edit/Delete</th>
     </tr>
 </table>
 
@@ -23,15 +23,15 @@
     $(".back").click(function(){
         window.open("/profile","_self");
     });
-    $(".students-store").click(function(){
-        window.open("/students-store","_self");
+    $(".store-student").click(function(){
+        window.open("/store-student","_self");
     });
 
     $(document).ready(function(){
 
         $.ajax({
             type:"GET",
-            url:"{{ route('getData') }}",
+            url:"http://127.0.0.1:8000/api/students",
             headers:{"authorization": localStorage.getItem("user_token")},
             success:function(data){
                 console.log(data);
@@ -45,11 +45,11 @@
                         <td>`+(data.students[i]['lastname'])+`</td>
                         <td>`+(data.students[i]['birthdate'])+`</td>
                         <td>`+(data.students[i]['group'])+`</td>
-                        <td> <input type="button" onclick="location.href='editUser/`+(data.students[i]['id'])+`';" value="Edit" /> 
-                             <input type="button" class="deleteData" onclick="location.href='#'" data-id="`+(data.students[i]['id'])+`" value="Delete" />
+                        <td> <input type="button" onclick="location.href='/edit-student/`+(data.students[i]['id'])+`';" value="Edit" />
+                             <input type="button" class="delete" onclick="location.href='#'" data-id="`+(data.students[i]['id'])+`" value="Delete" />
                         </td>
                         </tr>`);
-                        
+
                     }
                 } else {
                     $("#table-data").append("<tr><td colspan='4'>Data Not Found</td></tr>")
@@ -60,13 +60,13 @@
             }
         });
 
-        $("#table-data").on("click",".deleteData",function(){
+        $("#table-data").on("click",".delete",function(){
             var id = $(this).attr("data-id");
             var obj = $(this);
 
             $.ajax({
-                type:"GET",
-                url:"delete-data/"+id,
+                type:"delete",
+                url:"api/students/"+id,
                 success:function(){
                     $(obj).parent().parent().remove();
                     $("#output").text(data.result);

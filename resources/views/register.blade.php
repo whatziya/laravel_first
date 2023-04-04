@@ -2,7 +2,7 @@
 
 <style>
 
-    span{
+    span {
         color: red;
     }
 
@@ -29,61 +29,60 @@
     <span class="error password_confirmation_err"></span>
     <br><br>
     <input type="submit" value="Register">
-    
+    <button class="login">Back</button>
 </form>
 <br>
-<p class="result"><p>
+<p class="result">
+<p>
 
-<script>
+    <script>
+        $(".login").click(function () {
+            window.open("/login", "_self");
+        });
+        $(document).ready(function () {
+            $("#register_form").submit(function (event) {
+                event.preventDefault();
 
-    $(document).ready(function(){
-        $("#register_form").submit(function(event){
-            event.preventDefault();
+                var fromData = $(this).serialize();
 
-            var fromData = $(this).serialize();
-
-            $.ajax({
-                url:"http://127.0.0.1:8000/api/register",
-                type:"POST",
-                data:fromData,
-                success:function(data){
-                    if (data.msg) {
-                        $("#register_form")[0].reset();
-                        $(".error").text("");
-                        $(".result").text(data.msg);
-                        window.open("/login","_self");
+                $.ajax({
+                    url: "http://127.0.0.1:8000/api/register",
+                    type: "POST",
+                    data: fromData,
+                    success: function (data) {
+                        if (data.msg) {
+                            $("#register_form")[0].reset();
+                            $(".error").text("");
+                            $(".result").text(data.msg);
+                            window.open("/login", "_self");
+                        } else {
+                            printErrorMsg(data);
+                        }
                     }
-                    else {
-                        printErrorMsg(data);
-                    }
-                }
+                });
+
             });
 
+            function printErrorMsg(msg) {
+                $(".error").text("");
+                $.each(msg, function (key, value) {
+                    if (key == "password") {
+                        if (value.length > 1) {
+                            $(".password_err").text(value[0]);
+                            $(".password_confirmation_err").text(value[1]);
+
+                        } else {
+                            if (value[0].includes("password confirmation")) {
+                                $(".password_confirmation_err").text(value);
+                            } else {
+                                $(".password_err").text(value);
+                            }
+                        }
+                    } else {
+                        $("." + key + "_err").text(value);
+                    }
+                });
+            }
         });
 
-        function printErrorMsg(msg) {
-            $(".error").text("");
-            $.each(msg,function(key, value){
-                if (key == "password") {
-                    if (value.length > 1) {
-                        $(".password_err").text(value[0]);
-                        $(".password_confirmation_err").text(value[1]);
-
-                    }
-                    else {
-                        if (value[0].includes("password confirmation")) {
-                            $(".password_confirmation_err").text(value);
-                        }
-                        else {
-                            $(".password_err").text(value);
-                        }
-                    }
-                }
-                else {
-                    $("."+key+"_err").text(value);
-                }
-            });
-        }
-    });
-
-</script>
+    </script>

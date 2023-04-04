@@ -22,13 +22,15 @@
     <span class="error password_err"></span>
     <br><br>
     <input type="submit" value="Login">
-    
+    <button class="register">Register</button>
 </form>
 <br>
 <p class="result"><p>
 
 <script>
-
+    $(".register").click(function(){
+        window.open("/register","_self");
+    });
     $(document).ready(function(){
         $("#login_form").submit(function(event){
             event.preventDefault();

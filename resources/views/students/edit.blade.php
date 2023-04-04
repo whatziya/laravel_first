@@ -12,7 +12,7 @@
     <input type="date" name="birthdate" value="{{ $student[0]->birthdate }}" placeholder="Enter Birthdate" required>
     <br><br>
     <input type="text" name="group" value="{{ $student[0]->group }}" placeholder="Enter Group" required>
-    <input type="hidden" name="id" value="{{ $student[0]->id }}">
+    <input type="hidden" name="id" id="id" value="{{ $student[0]->id }}">
     <br><br>
     <input type="submit" value="Update Data">
 
@@ -23,25 +23,23 @@
     $(".refresh").hide();
     $(".students").hide();
     $(".back").click(function(){
-        window.open("/get-students","_self");
+        window.open("/students","_self");
     });
     $(document).ready(function(){
         $("#update-form").submit(function(event){
 
             event.preventDefault();
-
+            var id =$('#id').val();
             var form = $("#update-form")[0];
             var data = new FormData(form);
 
             $.ajax({
-                type:"POST",
-                url:"{{ route('updateStudent') }}",
-                data:data,
-                processData:false,
-                contentType:false,
+                type:"PUT",
+                url:"/api/students/"+id,
+                data:$(this).serialize(),
                 success:function(data){
                     $("#output").text(data.result);
-                    window.open("/get-students","_self");
+                    window.open("/students","_self");
                 },
                 error:function(err){
                     $("#output").text(err.responseText);
