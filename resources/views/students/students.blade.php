@@ -31,7 +31,7 @@
 
         $.ajax({
             type:"GET",
-            url:"http://127.0.0.1:8000/api/students",
+            url:"/api/students",
             headers:{"authorization": localStorage.getItem("user_token")},
             success:function(data){
                 console.log(data);

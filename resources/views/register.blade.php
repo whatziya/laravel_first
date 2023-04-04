@@ -46,7 +46,7 @@
                 var fromData = $(this).serialize();
 
                 $.ajax({
-                    url: "http://127.0.0.1:8000/api/register",
+                    url: "/api/register",
                     type: "POST",
                     data: fromData,
                     success: function (data) {

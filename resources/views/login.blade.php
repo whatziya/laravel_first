@@ -38,7 +38,7 @@
             var fromData = $(this).serialize();
 
             $.ajax({
-                url:"http://127.0.0.1:8000/api/login",
+                url:"/api/login",
                 type:"POST",
                 data:fromData,
                 success:function(data){

@@ -35,7 +35,7 @@
     $(document).ready(function () {
         $(".logout").click(function () {
             $.ajax({
-                url: "http://127.0.0.1:8000/api/logout",
+                url: "/api/logout",
                 type: "GET",
                 headers: {"authorization": localStorage.getItem("user_token")},
                 success: function (data) {
@@ -55,7 +55,7 @@
         $(".refresh").click(function () {
 
             $.ajax({
-                url: "http://127.0.0.1:8000/api/refresh-token",
+                url: "/api/refresh-token",
                 type: "GET",
                 headers: {"Authorization": localStorage.getItem("user_token")},
                 success: function (data) {

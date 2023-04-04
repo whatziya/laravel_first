@@ -59,7 +59,7 @@
                 var fromData = $(this).serialize();
 
                 $.ajax({
-                    url: "http://127.0.0.1:8000/api/students",
+                    url: "/api/students",
                     type: "POST",
                     headers: {"Authorization": localStorage.getItem("user_token")},
                     data: fromData,

@@ -27,7 +27,7 @@
     $(document).ready(function(){
         $.ajax({
 
-            url:"http://127.0.0.1:8000/api/profile",
+            url:"/api/profile",
             type:"GET",
             headers:{"Authorization":localStorage.getItem("user_token")},
             success:function(data){
@@ -58,7 +58,7 @@
             var formData = $(this).serialize();
 
             $.ajax({
-                url:"http://127.0.0.1:8000/api/profile-update",
+                url:"/api/profile-update",
                 type:"POST",
                 data:formData,
                 headers:{"Authorization":localStorage.getItem("user_token")},
@@ -99,7 +99,7 @@
         $(document).on("click",".verify_mail",function(){
             var email =$(this).attr('data-id');
             $.ajax({
-                url:'http://127.0.0.1:8000/api/send-verify-mail/'+email,
+                url:'/api/send-verify-mail/'+email,
                 type:'GET',
                 headers:{'Authorization':localStorage.getItem("user_token")},
                 success:function(data){
